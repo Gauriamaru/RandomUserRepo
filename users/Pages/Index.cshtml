@@ -1,0 +1,58 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+	<section>
+		<h1>Random Users</h1>
+
+		<!-- TABLE CONSTRUCTION-->
+		<table id='table'>
+			<!-- HEADING FORMATION -->
+			<tr>
+				<th>Title</th>
+				<th>First Name</th>
+				<th>Surname</th>
+				<th>Age</th>
+				<th>Latitude</th>
+				<th>Longitude</th>
+			</tr>
+
+			<script>
+								  $.ajax({url: 'https://randomuser.me/api/?results=5',
+								  dataType: 'json',
+								  success: function(data) {
+								  var user = '';
+
+										// ITERATING THROUGH OBJECTS
+										$.each(data.results, function (key, value) {
+											
+											user += '<tr>';
+											user += '<td>' +
+												value.name.title + '</td>';
+												user += '<td>' +
+												value.name.first + '</td>';
+											user += '<td>' +
+												value.name.last + '</td>';
+											user += '<td>' +
+												value.dob.age + '</td>';
+
+											user += '<td>' +
+												value.location.coordinates.latitude + '</td>';
+													user += '<td>' +
+												value.location.coordinates.longitude + '</td>';
+											user += '</tr>';
+										});
+					
+										$('#table').append(user);
+				  }
+				});
+
+
+			</script>
+
+		</table>
+	</section>
+</div>
